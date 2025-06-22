@@ -12,8 +12,3 @@ export type CreateNotePayload = {
   content: string; 
   tag: string;
 };
-
-export type NotesResponse = {
-  notes: Note[];
-  totalPages: number;
-};

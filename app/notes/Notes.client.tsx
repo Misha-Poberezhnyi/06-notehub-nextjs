@@ -13,7 +13,7 @@ import QueryStatus from "../../components/QueryStatus/QueryStatus";
 
 import css from "./Notes.module.css";
 
-import type { NotesResponse } from "@/types/note";
+import type { NotesResponse } from "@/types/noteApi";
 import { fetchNotes } from "@/lib/api";
 
 type Props = {
