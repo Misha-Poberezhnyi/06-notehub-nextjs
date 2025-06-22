@@ -1,7 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
 import { useDebounce } from "use-debounce";
 import { Toaster } from "react-hot-toast";
 
@@ -27,11 +31,11 @@ function NotesInner({ initialData }: Props) {
   const [debouncedSearch] = useDebounce(searchTerm, 500);
 
   useEffect(() => {
-    setCurrentPage(prev => (prev !== 1 ? 1 : prev));
+    setCurrentPage((prev) => (prev !== 1 ? 1 : prev));
   }, [searchTerm]);
 
   const {
-    data = initialData,
+    data,
     isLoading,
     isError,
     error,
@@ -39,11 +43,12 @@ function NotesInner({ initialData }: Props) {
   } = useQuery<NotesResponse, Error>({
     queryKey: ["notes", debouncedSearch, currentPage],
     queryFn: () => fetchNotes(debouncedSearch, currentPage),
-    placeholderData: previousData => previousData,
+    initialData: initialData, 
+    placeholderData: (previousData) => previousData, 
   });
 
-  const notes = data.notes || [];
-  const totalPages = data.totalPages || 1;
+  const notes = data?.notes || [];
+  const totalPages = data?.totalPages || 1;
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
